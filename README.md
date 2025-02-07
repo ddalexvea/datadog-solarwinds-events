@@ -15,13 +15,13 @@ sequenceDiagram
     end
     Note left of Setup: Datadog Endpoint:<br/> https://app.datadoghq.com/intake/webhook/solarwinds?api_key=...
     Note left of Setup: Body to Post:<br/>{<br/>                                                                                                             "acknowledged": "${N=Alerting#59;M=Acknowledged}",<br>   "acknowledged_by": "${N=Alerting#59;M=AcknowledgedBy}",<br>   "alert_description": "${N=Alerting#59;M=AlertDescription}",<br>   "alert_details_url": "${N=Alerting#59;M=AlertDetailsUrl}",<br>   "alert_id": "${N=Alerting#59;M=AlertDefID}",<br>   "alert_message": "${N=Alerting#59;M=AlertMessage}",<br>   "alert_name": "${N=Alerting#59;M=AlertName}",<br>   "alert_severity": "${N=Alerting#59;M=Severity}",<br> [...]"<br>}
-    Setup->>TriggerAction: Configure Trigger Action
-    Note over TriggerAction: Alert Appears in SolarWinds
-    TriggerAction->>SendHTTP: Evaluate Variables {N=xxx#59;M=xxx} from 'body to post'
+    Setup->>TriggerAction: Configure
+    Note over TriggerAction: Alert Appears
+    TriggerAction->>SendHTTP: Evaluate variables {N=xxx#59;M=xxx}<br/> from 'body to post'
     SendHTTP->>+DatadogWebhook: HTTP POST Request
     Note right of SendHTTP: Datadog Endpoint
     Note right of SendHTTP: Body with values
-    Note right of DatadogWebhook: Webhook processes the payload
+    Note right of DatadogWebhook: Processing the payload
     DatadogWebhook-->>-SendHTTP: HTTP Response (202 Accepted)
     DatadogWebhook->>DatadogUI: Create Event in Datadog
     Note right of DatadogUI: Event visible in Events Explorer
